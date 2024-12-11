@@ -13,23 +13,23 @@ function HomePage() {
   return (
     <div className={`h-screen ${darkMode ? "bg-gray-900" : "bg-gray-100"}`}>
       <Navbar />
-      <div className="flex w-7/12 justify-around pt-5">
-        <AmountBox
-          title={amountData.balance.label}
-          amount={amountData.balance.amount}
-          className={darkMode ? "bg-gray-800 text-gray-200" : "bg-white text-gray-900"}
-        />
-        <AmountBox
-          title={amountData.expenses.label}
-          amount={amountData.expenses.amount}
-          className={darkMode ? "bg-gray-800 text-gray-200" : "bg-white text-gray-900"}
-        />
+
+      {/* Welcome message */}
+      <div className="w-full text-left pt-6">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-200">
+        Welcome,  
+        </h1>
       </div>
-      <br />
+
+      {/* Main content */}
       <div className="flex flex-col md:flex-row gap-6 p-6">
         {/* Chart container */}
         <div className="w-full md:w-[70vw] lg:w-[75vw] h-[50vh] p-4">
-          <Line options={config.options} data={config.data} className={darkMode ? "bg-gray-800" : "bg-gray-50"} />
+          <Line
+            options={config.options}
+            data={config.data}
+            className={darkMode ? "bg-gray-800" : "bg-gray-50"}
+          />
         </div>
 
         {/* Transaction box */}

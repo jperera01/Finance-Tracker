@@ -1,6 +1,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './store';
 
 import HomePage from './pages/HomePage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
@@ -11,25 +14,29 @@ import TransactionDetailsPage from './pages/TransactionDetailsPage.jsx';
 import LandingPage from './pages/LandingPage.jsx';
 import TestPage from './pages/TestPage.jsx'; 
 
-import { DarkModeProvider } from './context/DarkModeContext'; // Import the provider
+import { DarkModeProvider } from './context/DarkModeContext';
 import './index.css';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <DarkModeProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route index element={<HomePage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/investments" element={<InvestmentsPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/risk-form" element={<RiskForm />} />
-          <Route path="/transaction-details" element={<TransactionDetailsPage />} />
-          <Route path="/landing" element={<LandingPage />} />
-          <Route path="/test" element={<TestPage />} />
-        </Routes>
-      </BrowserRouter>
-    </DarkModeProvider>
+    <Provider store={store}>
+      <PersistGate loading={<p>Loading...</p>} persistor={persistor}>
+        <DarkModeProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route index element={<HomePage />} />
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/investments" element={<InvestmentsPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignupPage />} />
+              <Route path="/risk-form" element={<RiskForm />} />
+              <Route path="/transaction-details" element={<TransactionDetailsPage />} />
+              <Route path="/landing" element={<LandingPage />} />
+              <Route path="/test" element={<TestPage />} />
+            </Routes>
+          </BrowserRouter>
+        </DarkModeProvider>
+      </PersistGate>
+    </Provider>
   </StrictMode>,
 );
